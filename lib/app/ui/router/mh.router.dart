@@ -2,6 +2,7 @@ import 'package:money_hustle/app/ui/onboarding/mh.onboarding.page.dart';
 import 'package:money_hustle/app/ui/premium/mh.main_paywall.page.dart';
 import 'package:money_hustle/app/ui/root/mh.main.page.dart';
 import 'package:money_hustle/app/ui/settings/mh.settings.page.dart';
+import 'package:money_hustle/app/ui/screens/idea_details/mh.idea_details.page.dart';
 import 'package:money_hustle/core/ui/mh.launch.wrapper.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,6 +26,13 @@ final List<GoRoute> appRoutes = [
           context.push('/create');
         },
       );
+    },
+  ),
+  GoRoute(
+    path: '/idea/:id',
+    builder: (context, state) {
+      final ideaId = state.pathParameters['id'] ?? '';
+      return MHIdeaDetailsPage(ideaId: ideaId);
     },
   ),
 ];

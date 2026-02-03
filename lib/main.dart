@@ -1,9 +1,11 @@
 import 'package:device_preview_plus/device_preview_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:apphud_helper/apphud_helper.dart';
 
+import 'app/data/providers/mh.ideas.provider.dart';
 import 'app/mh.app.dart';
 import 'app/ui/onboarding/mh.onboarding.page.dart';
 import 'app/ui/root/mh.main.page.dart';
@@ -40,12 +42,18 @@ void main() async {
     ),
     helperType: HelperType.fallbackBased,
   );
+  final ideasProvider = MHIdeasProvider();
+  await ideasProvider.init();
+
   runApp(
-    DevicePreview(
-      enabled: kReleaseMode,
-      builder: (context) {
-        return const MoneyHustle();
-      },
+    ChangeNotifierProvider.value(
+      value: ideasProvider,
+      child: DevicePreview(
+        enabled: kReleaseMode,
+        builder: (context) {
+          return const MoneyHustle();
+        },
+      ),
     ),
   );
 }
