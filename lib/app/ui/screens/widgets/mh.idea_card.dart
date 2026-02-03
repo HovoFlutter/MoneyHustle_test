@@ -62,7 +62,7 @@ class MHIdeaCard extends StatelessWidget {
                             ? CupertinoIcons.bookmark_fill
                             : CupertinoIcons.bookmark,
                         color: isSaved
-                            ? MHColorStyles.indigo
+                            ? MHColorStyles.primary
                             : MHColorStyles.gray2Dark,
                         size: 22.r,
                       ),
@@ -176,7 +176,7 @@ class _ProgressBar extends StatelessWidget {
             Text(
               '$progress%',
               style: MHTextStyles.caption1Emphasized.copyWith(
-                color: MHColorStyles.indigo,
+                color: MHColorStyles.primary,
               ),
             ),
           ],
@@ -187,7 +187,7 @@ class _ProgressBar extends StatelessWidget {
           child: LinearProgressIndicator(
             value: progress / 100,
             backgroundColor: MHColorStyles.fillsTertiary,
-            valueColor: AlwaysStoppedAnimation<Color>(MHColorStyles.indigo),
+            valueColor: AlwaysStoppedAnimation<Color>(MHColorStyles.primary),
             minHeight: 6.r,
           ),
         ),

@@ -54,7 +54,7 @@ class _MHIdeaDetailsPageState extends State<MHIdeaDetailsPage> {
             ),
           ],
         ),
-        backgroundColor: MHColorStyles.indigo,
+        backgroundColor: MHColorStyles.primary,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
         margin: EdgeInsets.all(16.r),
@@ -93,7 +93,7 @@ class _MHIdeaDetailsPageState extends State<MHIdeaDetailsPage> {
                   onTap: () => _handleSave(context, provider, idea),
                   child: Icon(
                     isSaved ? CupertinoIcons.bookmark_fill : CupertinoIcons.bookmark,
-                    color: isSaved ? MHColorStyles.indigo : MHColorStyles.gray2Dark,
+                    color: isSaved ? MHColorStyles.primary : MHColorStyles.gray2Dark,
                   ),
                 ),
               ),
@@ -316,7 +316,7 @@ class _StepsSection extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(CupertinoIcons.list_number, size: 20.r, color: MHColorStyles.indigo),
+              Icon(CupertinoIcons.list_number, size: 20.r, color: MHColorStyles.primary),
               SizedBox(width: 8.r),
               Text('Steps to Get Started', style: MHTextStyles.headlineRegular),
             ],
@@ -347,7 +347,7 @@ class _StepsSection extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: isCompleted
                             ? MHColorStyles.green
-                            : (isInProgress ? MHColorStyles.fillsTertiary : MHColorStyles.indigoWithOpacity),
+                            : (isInProgress ? MHColorStyles.fillsTertiary : MHColorStyles.primaryWithOpacity),
                         shape: BoxShape.circle,
                       ),
                       child: Center(
@@ -356,7 +356,7 @@ class _StepsSection extends StatelessWidget {
                             : Text(
                                 '${index + 1}',
                                 style: MHTextStyles.caption1Emphasized.copyWith(
-                                  color: isInProgress ? MHColorStyles.gray2Dark : MHColorStyles.indigo,
+                                  color: isInProgress ? MHColorStyles.gray2Dark : MHColorStyles.primary,
                                 ),
                               ),
                       ),
@@ -597,7 +597,7 @@ class _ActionButton extends StatelessWidget {
       child: FilledButton(
         onPressed: onStart,
         style: FilledButton.styleFrom(
-          backgroundColor: MHColorStyles.indigo,
+          backgroundColor: MHColorStyles.primary,
           padding: EdgeInsets.symmetric(vertical: 16.r),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r)),
         ),

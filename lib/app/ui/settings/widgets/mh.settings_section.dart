@@ -26,7 +26,7 @@ class MHSettingsSection extends StatelessWidget {
                         endIndent: 16.r,
                         height: 1,
                         thickness: 1,
-                        color: MHColorStyles.indigoWithOpacity,
+                        color: MHColorStyles.primaryWithOpacity,
                       ),
                     ],
                   )

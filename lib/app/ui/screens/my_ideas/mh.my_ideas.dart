@@ -324,7 +324,7 @@ class _ProgressBar extends StatelessWidget {
           child: LinearProgressIndicator(
             value: progress / 100,
             backgroundColor: MHColorStyles.fillsTertiary.withValues(alpha: 0.5),
-            valueColor: AlwaysStoppedAnimation<Color>(MHColorStyles.indigo),
+            valueColor: AlwaysStoppedAnimation<Color>(MHColorStyles.primary),
             minHeight: 4.r,
           ),
         ),
@@ -361,7 +361,7 @@ class _ContinueButtonState extends State<_ContinueButton> {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 14.r, vertical: 8.r),
           decoration: BoxDecoration(
-            color: MHColorStyles.indigo,
+            color: MHColorStyles.primary,
             borderRadius: BorderRadius.circular(20.r),
           ),
           child: Text(
@@ -462,12 +462,12 @@ class _StartButtonState extends State<_StartButton> {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 6.r),
           decoration: BoxDecoration(
-            color: MHColorStyles.indigo.withValues(alpha: 0.1),
+            color: MHColorStyles.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(14.r),
           ),
           child: Text(
             'Start',
-            style: MHTextStyles.caption1Emphasized.copyWith(color: MHColorStyles.indigo),
+            style: MHTextStyles.caption1Emphasized.copyWith(color: MHColorStyles.primary),
           ),
         ),
       ),
@@ -539,13 +539,13 @@ class _EmptyState extends StatelessWidget {
             width: 100.r,
             height: 100.r,
             decoration: BoxDecoration(
-              color: MHColorStyles.indigo.withValues(alpha: 0.08),
+              color: MHColorStyles.primary.withValues(alpha: 0.08),
               shape: BoxShape.circle,
             ),
             child: Icon(
               CupertinoIcons.lightbulb,
               size: 44.r,
-              color: MHColorStyles.indigo,
+              color: MHColorStyles.primary,
             ),
           ),
           SizedBox(height: 28.r),
@@ -604,7 +604,7 @@ class _PrimaryButtonState extends State<_PrimaryButton> {
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 16.r),
           decoration: BoxDecoration(
-            color: MHColorStyles.indigo,
+            color: MHColorStyles.primary,
             borderRadius: BorderRadius.circular(14.r),
           ),
           child: Center(

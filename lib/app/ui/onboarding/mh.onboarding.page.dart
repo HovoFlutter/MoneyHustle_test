@@ -137,8 +137,8 @@ class _MHOnBoardingPageState extends State<MHOnBoardingPage> {
                         height: 26.r,
                         child: AnimatedSmoothIndicator(
                           effect: ExpandingDotsEffect(
-                            dotColor: MHColorStyles.indigoWithOpacity,
-                            activeDotColor: MHColorStyles.indigo,
+                            dotColor: MHColorStyles.primaryWithOpacity,
+                            activeDotColor: MHColorStyles.primary,
                             dotHeight: 6.r,
                             dotWidth: 6.r,
                             expansionFactor: 4,
@@ -165,7 +165,7 @@ class _MHOnBoardingPageState extends State<MHOnBoardingPage> {
                                     TextSpan(
                                       text: titles.last,
                                       style: TextStyle(
-                                        color: MHColorStyles.indigo,
+                                        color: MHColorStyles.primary,
                                       ),
                                     ),
                                 ],
@@ -183,7 +183,7 @@ class _MHOnBoardingPageState extends State<MHOnBoardingPage> {
                               TextSpan(text: '\n'),
                               TextSpan(
                                 text: secondTitles[pageNumber],
-                                style: TextStyle(color: MHColorStyles.indigo),
+                                style: TextStyle(color: MHColorStyles.primary),
                               ),
                             ],
                           ),

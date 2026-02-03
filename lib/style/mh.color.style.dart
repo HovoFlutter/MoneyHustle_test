@@ -4,8 +4,18 @@ import 'package:flutter/material.dart';
 
 class MHColorStyles {
   static const onbBackground = Color(0xFFF2F2F2);
-  static const indigoWithOpacity = Color(0x265856D6);
-  static const indigo = Color(0xFF5856D6);
+  
+  static const primary = Color(0xFF1F7A5A);
+  static const primaryWithOpacity = Color(0x261F7A5A);
+  
+  static const accent = Color(0xFF6B6EEA);
+  static const accentWithOpacity = Color(0x266B6EEA);
+  
+  @Deprecated('Use primary instead')
+  static const indigo = primary;
+  @Deprecated('Use primaryWithOpacity instead')
+  static const indigoWithOpacity = primaryWithOpacity;
+  
   static const green = Color(0xFF34C759);
   static const greenWithOpacity = Color(0x3334C759);
   static const bgSecondary = Color(0xFFF2F2F7);
@@ -40,21 +50,21 @@ class MHColorStyles {
 }
 
 class MHThemeColors {
-  static const splashBackground = MHColorStyles.indigo;
+  static const splashBackground = MHColorStyles.primary;
   static const pageBackground = MHColorStyles.bgSecondary;
   static const appBarBackground = MHColorStyles.bgSecondary;
   static const appBarForeground = MHColorStyles.primaryTxt;
 
-  static const filledButton = MHColorStyles.indigo;
+  static const filledButton = MHColorStyles.primary;
   static const filledButtonDisalbed = MHColorStyles.fillsTertiary;
   static const filledButtonForeground = MHColorStyles.white;
   static const filledButtonText = MHColorStyles.white;
   static const filledButtonDisableText = MHColorStyles.labelsTertiary;
   static const filledButtonDisableForeground = MHColorStyles.labelsTertiary;
   static const textFieldBackground = MHColorStyles.white;
-  static const textFieldInput = MHColorStyles.indigo;
+  static const textFieldInput = MHColorStyles.primary;
 
-  static const iconColor = MHColorStyles.indigo;
-  static const actionIconColor = MHColorStyles.indigo;
+  static const iconColor = MHColorStyles.primary;
+  static const actionIconColor = MHColorStyles.primary;
   static const deleteColor = MHColorStyles.pink;
 }

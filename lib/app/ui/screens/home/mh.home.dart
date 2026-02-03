@@ -175,8 +175,8 @@ class _MotivationalBanner extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            MHColorStyles.indigo,
-            MHColorStyles.indigo.withValues(alpha: 0.85),
+            MHColorStyles.primary,
+            MHColorStyles.primary.withValues(alpha: 0.85),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -217,18 +217,18 @@ class _TodaysFocusChip extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 8.r),
         decoration: BoxDecoration(
-          color: MHColorStyles.indigoWithOpacity,
+          color: MHColorStyles.primaryWithOpacity,
           borderRadius: BorderRadius.circular(10.r),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(CupertinoIcons.compass_fill, size: 14.r, color: MHColorStyles.indigo),
+            Icon(CupertinoIcons.compass_fill, size: 14.r, color: MHColorStyles.primary),
             SizedBox(width: 6.r),
             Text(
               focus.title,
               style: MHTextStyles.caption1Emphasized.copyWith(
-                color: MHColorStyles.indigo,
+                color: MHColorStyles.primary,
               ),
             ),
           ],
@@ -287,20 +287,20 @@ class _IdeaOfTheDayCardState extends State<_IdeaOfTheDayCard> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  const Color(0xFFF8F7FF),
-                  const Color(0xFFFDFCFF),
+                  const Color(0xFFF5FAF8),
+                  const Color(0xFFFDFEFD),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(20.r),
               border: Border.all(
-                color: MHColorStyles.indigo.withValues(alpha: 0.15),
+                color: MHColorStyles.primary.withValues(alpha: 0.15),
                 width: 1,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: MHColorStyles.indigo.withValues(alpha: 0.08),
+                  color: MHColorStyles.primary.withValues(alpha: 0.08),
                   blurRadius: 24,
                   offset: const Offset(0, 8),
                 ),
@@ -313,7 +313,7 @@ class _IdeaOfTheDayCardState extends State<_IdeaOfTheDayCard> {
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 10.r),
                   decoration: BoxDecoration(
-                    color: MHColorStyles.indigo,
+                    color: MHColorStyles.primary,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(19.r),
                       topRight: Radius.circular(19.r),
@@ -423,13 +423,13 @@ class _BookmarkButtonState extends State<_BookmarkButton> {
           padding: EdgeInsets.all(8.r),
           decoration: BoxDecoration(
             color: widget.isSaved
-                ? MHColorStyles.indigo.withValues(alpha: 0.12)
+                ? MHColorStyles.primary.withValues(alpha: 0.12)
                 : MHColorStyles.fillsTertiary.withValues(alpha: 0.6),
             shape: BoxShape.circle,
           ),
           child: Icon(
             widget.isSaved ? CupertinoIcons.bookmark_fill : CupertinoIcons.bookmark,
-            color: widget.isSaved ? MHColorStyles.indigo : MHColorStyles.gray2Dark,
+            color: widget.isSaved ? MHColorStyles.primary : MHColorStyles.gray2Dark,
             size: 18.r,
           ),
         ),
@@ -456,7 +456,7 @@ class _CategoryBadge extends StatelessWidget {
       case MHIdeaCategory.skillsFreelance:
         return MHColorStyles.green;
       case MHIdeaCategory.sellingReselling:
-        return MHColorStyles.indigo;
+        return MHColorStyles.accent;
     }
   }
 
@@ -473,7 +473,7 @@ class _CategoryBadge extends StatelessWidget {
       case MHIdeaCategory.skillsFreelance:
         return MHColorStyles.greenWithOpacity;
       case MHIdeaCategory.sellingReselling:
-        return MHColorStyles.indigoWithOpacity;
+        return MHColorStyles.accentWithOpacity;
     }
   }
 
@@ -521,7 +521,7 @@ class _LearnMoreButtonState extends State<_LearnMoreButton> {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 14.r, vertical: 8.r),
           decoration: BoxDecoration(
-            color: MHColorStyles.indigo,
+            color: MHColorStyles.primary,
             borderRadius: BorderRadius.circular(20.r),
           ),
           child: Row(
@@ -708,7 +708,7 @@ class _SmallCategoryTag extends StatelessWidget {
       case MHIdeaCategory.skillsFreelance:
         return MHColorStyles.green;
       case MHIdeaCategory.sellingReselling:
-        return MHColorStyles.indigo;
+        return MHColorStyles.accent;
     }
   }
 

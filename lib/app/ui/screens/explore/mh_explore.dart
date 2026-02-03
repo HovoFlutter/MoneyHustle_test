@@ -122,7 +122,7 @@ class _MHExploreScreenState extends State<MHExploreScreen> {
                                 child: Text(
                                   'Clear all',
                                   style: MHTextStyles.subheadlineRegular.copyWith(
-                                    color: MHColorStyles.indigo,
+                                    color: MHColorStyles.primary,
                                   ),
                                 ),
                               ),
@@ -265,7 +265,7 @@ class _EmptyState extends StatelessWidget {
                 child: Text(
                   'Clear filters',
                   style: MHTextStyles.subheadlineEmphasized.copyWith(
-                    color: MHColorStyles.indigo,
+                    color: MHColorStyles.primary,
                   ),
                 ),
               ),

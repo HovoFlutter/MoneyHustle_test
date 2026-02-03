@@ -121,12 +121,12 @@ class MHMainPaywallPage extends StatelessWidget {
                                     ),
                                     decoration: BoxDecoration(
                                       color: isActive
-                                          ? MHColorStyles.indigoWithOpacity
+                                          ? MHColorStyles.primaryWithOpacity
                                           : null,
                                       borderRadius: BorderRadius.circular(18).r,
                                       border: Border.all(
                                         width: isActive ? 2 : 0.5,
-                                        color: MHColorStyles.indigo,
+                                        color: MHColorStyles.primary,
                                       ),
                                     ),
                                     child: Row(
@@ -143,7 +143,7 @@ class MHMainPaywallPage extends StatelessWidget {
                                                     .subheadlineEmphasized
                                                     .copyWith(
                                                       color:
-                                                          MHColorStyles.indigo,
+                                                          MHColorStyles.primary,
                                                     ),
                                               ),
                                               Text(
@@ -152,7 +152,7 @@ class MHMainPaywallPage extends StatelessWidget {
                                                     .footnoteRegular
                                                     .copyWith(
                                                       color: MHColorStyles
-                                                          .indigo
+                                                          .primary
                                                           .withAlpha(
                                                             (255 * 0.6).toInt(),
                                                           ),
@@ -164,7 +164,7 @@ class MHMainPaywallPage extends StatelessWidget {
                                         Container(
                                           height: 38,
                                           width: 0.5,
-                                          color: MHColorStyles.indigo.withAlpha(
+                                          color: MHColorStyles.primary.withAlpha(
                                             (255 * 0.6).toInt(),
                                           ),
                                         ),
@@ -176,7 +176,7 @@ class MHMainPaywallPage extends StatelessWidget {
                                             style: MHTextStyles
                                                 .subheadlineEmphasized
                                                 .copyWith(
-                                                  color: MHColorStyles.indigo,
+                                                  color: MHColorStyles.primary,
                                                 ),
                                           ),
                                         ),

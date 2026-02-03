@@ -62,7 +62,7 @@ class PremiumBanner extends StatelessWidget {
                   padding: EdgeInsets.all(16).r,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18).r,
-                    color: MHColorStyles.indigo,
+                    color: MHColorStyles.primary,
                   ),
                   child: Row(
                     children: [

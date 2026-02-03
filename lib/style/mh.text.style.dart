@@ -207,7 +207,7 @@ class ThemeTextStyles {
     fontSize: 40,
     height: 47 / 40,
     fontWeight: FontWeight.w700,
-    color: MHColorStyles.indigo,
+    color: MHColorStyles.primary,
     letterSpacing: -0.94,
   ).rz;
 }

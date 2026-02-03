@@ -7,7 +7,7 @@ import 'mh.style.dart';
 ThemeData appThemeBuilder(BuildContext context) => ThemeData(
   textTheme: Typography.blackCupertino.apply(bodyColor: MHColorStyles.black),
   colorScheme: ColorScheme.fromSeed(
-    seedColor: MHColorStyles.indigo,
+    seedColor: MHColorStyles.primary,
     brightness: Brightness.light,
   ),
   iconTheme: const IconThemeData(color: MHThemeColors.iconColor),
@@ -79,7 +79,7 @@ ThemeData appThemeBuilder(BuildContext context) => ThemeData(
   cupertinoOverrideTheme: const CupertinoThemeData(
     barBackgroundColor: MHThemeColors.pageBackground,
     scaffoldBackgroundColor: MHThemeColors.pageBackground,
-    primaryColor: MHColorStyles.indigo,
+    primaryColor: MHColorStyles.primary,
   ),
   inputDecorationTheme: InputDecorationTheme(
     isDense: true,

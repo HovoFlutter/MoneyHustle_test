@@ -17,7 +17,7 @@ class MHCategoryChip extends StatelessWidget {
   });
 
   Color get _backgroundColor {
-    if (selected) return MHColorStyles.indigo;
+    if (selected) return MHColorStyles.primary;
     switch (category) {
       case MHIdeaCategory.onlineWork:
         return MHColorStyles.cyanWithOpacity;
@@ -30,7 +30,7 @@ class MHCategoryChip extends StatelessWidget {
       case MHIdeaCategory.skillsFreelance:
         return MHColorStyles.greenWithOpacity;
       case MHIdeaCategory.sellingReselling:
-        return MHColorStyles.indigoWithOpacity;
+        return MHColorStyles.accentWithOpacity;
     }
   }
 
@@ -48,7 +48,7 @@ class MHCategoryChip extends StatelessWidget {
       case MHIdeaCategory.skillsFreelance:
         return MHColorStyles.green;
       case MHIdeaCategory.sellingReselling:
-        return MHColorStyles.indigo;
+        return MHColorStyles.accent;
     }
   }
 
@@ -90,7 +90,7 @@ class MHInvestmentChip extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.r, vertical: 4.r),
         decoration: BoxDecoration(
-          color: selected ? MHColorStyles.indigo : MHColorStyles.fillsTertiary,
+          color: selected ? MHColorStyles.primary : MHColorStyles.fillsTertiary,
           borderRadius: BorderRadius.circular(8.r),
         ),
         child: Text(

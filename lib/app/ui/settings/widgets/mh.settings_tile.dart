@@ -45,13 +45,13 @@ class MHSettingsTile extends StatelessWidget {
                   decoration: BoxDecoration(
                     color:
                         iconBackgroundColor ??
-                        MHColorStyles.indigo.withValues(alpha: 0.1),
+                        MHColorStyles.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6).r,
                   ),
                   child: Icon(
                     icon,
                     size: 18.r,
-                    color: iconColor ?? MHColorStyles.indigo,
+                    color: iconColor ?? MHColorStyles.primary,
                   ),
                 ),
                 SizedBox(width: 12.r),
@@ -90,7 +90,7 @@ class MHSettingsTile extends StatelessWidget {
                         vertical: 4,
                       ).r,
                       decoration: BoxDecoration(
-                        color: (statusColor ?? MHColorStyles.indigo).withValues(
+                        color: (statusColor ?? MHColorStyles.primary).withValues(
                           alpha: 0.1,
                         ),
                         borderRadius: BorderRadius.circular(12).r,
@@ -98,7 +98,7 @@ class MHSettingsTile extends StatelessWidget {
                       child: Text(
                         status!,
                         style: MHTextStyles.caption1Emphasized.copyWith(
-                          color: statusColor ?? MHColorStyles.indigo,
+                          color: statusColor ?? MHColorStyles.primary,
                         ),
                       ),
                     ),
