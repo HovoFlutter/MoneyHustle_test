@@ -81,136 +81,142 @@ class _MHExploreScreenState extends State<MHExploreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MHColorStyles.onbBackground,
-      body: CustomScrollView(
-        slivers: [
-          CupertinoSliverNavigationBar(
+      body: Column(
+        children: [
+          CupertinoNavigationBar(
             backgroundColor: MHColorStyles.white,
             border: null,
-            largeTitle: Text('Explore', style: MHTextStyles.largeTitleEmphasized),
-            heroTag: 'explore_nav',
+            middle: Text('Explore', style: MHTextStyles.headlineRegular),
+            transitionBetweenRoutes: false,
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(16.r, 8.r, 16.r, 0),
-              child: CupertinoSearchTextField(
-                controller: _searchController,
-                placeholder: 'Search ideas...',
-                onChanged: (value) => setState(() => _searchQuery = value),
-                onSuffixTap: () {
-                  _searchController.clear();
-                  setState(() => _searchQuery = '');
-                },
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(16.r, 16.r, 16.r, 8.r),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Categories', style: MHTextStyles.subheadlineEmphasized),
-                      if (_selectedCategories.isNotEmpty || _selectedInvestments.isNotEmpty)
-                        GestureDetector(
-                          onTap: _clearFilters,
-                          child: Text(
-                            'Clear all',
-                            style: MHTextStyles.subheadlineRegular.copyWith(
-                              color: MHColorStyles.indigo,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                  SizedBox(height: 8.r),
-                  Wrap(
-                    spacing: 8.r,
-                    runSpacing: 8.r,
-                    children: MHIdeaCategory.values.map((category) {
-                      return MHCategoryChip(
-                        category: category,
-                        selected: _selectedCategories.contains(category),
-                        onTap: () => _toggleCategory(category),
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 16.r),
-                  Text('Investment', style: MHTextStyles.subheadlineEmphasized),
-                  SizedBox(height: 8.r),
-                  Wrap(
-                    spacing: 8.r,
-                    runSpacing: 8.r,
-                    children: MHInvestmentType.values.map((investment) {
-                      return MHInvestmentChip(
-                        investment: investment,
-                        selected: _selectedInvestments.contains(investment),
-                        onTap: () => _toggleInvestment(investment),
-                      );
-                    }).toList(),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Divider(
-              height: 1,
-              thickness: 1,
-              color: MHColorStyles.fillsTertiary,
-              indent: 16.r,
-              endIndent: 16.r,
-            ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.all(16.r),
-            sliver: Consumer<MHIdeasProvider>(
-              builder: (context, provider, _) {
-                final ideas = provider.filterIdeas(
-                  query: _searchQuery.isEmpty ? null : _searchQuery,
-                  categories: _selectedCategories.isEmpty ? null : _selectedCategories,
-                  investments: _selectedInvestments.isEmpty ? null : _selectedInvestments,
-                );
-
-                if (ideas.isEmpty) {
-                  return SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: _EmptyState(
-                      hasFilters: _searchQuery.isNotEmpty ||
-                          _selectedCategories.isNotEmpty ||
-                          _selectedInvestments.isNotEmpty,
-                      onClear: _clearFilters,
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(16.r, 8.r, 16.r, 0),
+                    child: CupertinoSearchTextField(
+                      controller: _searchController,
+                      placeholder: 'Search ideas...',
+                      onChanged: (value) => setState(() => _searchQuery = value),
+                      onSuffixTap: () {
+                        _searchController.clear();
+                        setState(() => _searchQuery = '');
+                      },
                     ),
-                  );
-                }
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(16.r, 16.r, 16.r, 8.r),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Categories', style: MHTextStyles.subheadlineEmphasized),
+                            if (_selectedCategories.isNotEmpty || _selectedInvestments.isNotEmpty)
+                              GestureDetector(
+                                onTap: _clearFilters,
+                                child: Text(
+                                  'Clear all',
+                                  style: MHTextStyles.subheadlineRegular.copyWith(
+                                    color: MHColorStyles.indigo,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                        SizedBox(height: 8.r),
+                        Wrap(
+                          spacing: 8.r,
+                          runSpacing: 8.r,
+                          children: MHIdeaCategory.values.map((category) {
+                            return MHCategoryChip(
+                              category: category,
+                              selected: _selectedCategories.contains(category),
+                              onTap: () => _toggleCategory(category),
+                            );
+                          }).toList(),
+                        ),
+                        SizedBox(height: 16.r),
+                        Text('Investment', style: MHTextStyles.subheadlineEmphasized),
+                        SizedBox(height: 8.r),
+                        Wrap(
+                          spacing: 8.r,
+                          runSpacing: 8.r,
+                          children: MHInvestmentType.values.map((investment) {
+                            return MHInvestmentChip(
+                              investment: investment,
+                              selected: _selectedInvestments.contains(investment),
+                              onTap: () => _toggleInvestment(investment),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Divider(
+                    height: 1,
+                    thickness: 1,
+                    color: MHColorStyles.fillsTertiary,
+                    indent: 16.r,
+                    endIndent: 16.r,
+                  ),
+                ),
+                SliverPadding(
+                  padding: EdgeInsets.all(16.r),
+                  sliver: Consumer<MHIdeasProvider>(
+                    builder: (context, provider, _) {
+                      final ideas = provider.filterIdeas(
+                        query: _searchQuery.isEmpty ? null : _searchQuery,
+                        categories: _selectedCategories.isEmpty ? null : _selectedCategories,
+                        investments: _selectedInvestments.isEmpty ? null : _selectedInvestments,
+                      );
 
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final idea = ideas[index];
-                      final isSaved = provider.isIdeaSaved(idea.id);
-                      return MHIdeaCard(
-                        idea: idea,
-                        isSaved: isSaved,
-                        onTap: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                            CupertinoPageRoute(
-                              builder: (_) => MHIdeaDetailsPage(ideaId: idea.id),
-                            ),
-                          );
-                        },
-                        onSave: () => _handleSave(idea.id),
+                      if (ideas.isEmpty) {
+                        return SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: _EmptyState(
+                            hasFilters: _searchQuery.isNotEmpty ||
+                                _selectedCategories.isNotEmpty ||
+                                _selectedInvestments.isNotEmpty,
+                            onClear: _clearFilters,
+                          ),
+                        );
+                      }
+
+                      return SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            final idea = ideas[index];
+                            final isSaved = provider.isIdeaSaved(idea.id);
+                            return MHIdeaCard(
+                              idea: idea,
+                              isSaved: isSaved,
+                              onTap: () {
+                                Navigator.of(context, rootNavigator: true).push(
+                                  CupertinoPageRoute(
+                                    builder: (_) => MHIdeaDetailsPage(ideaId: idea.id),
+                                  ),
+                                );
+                              },
+                              onSave: () => _handleSave(idea.id),
+                            );
+                          },
+                          childCount: ideas.length,
+                        ),
                       );
                     },
-                    childCount: ideas.length,
                   ),
-                );
-              },
+                ),
+                SliverToBoxAdapter(child: SizedBox(height: 20.r)),
+              ],
             ),
           ),
-          SliverToBoxAdapter(child: SizedBox(height: 20.r)),
         ],
       ),
     );

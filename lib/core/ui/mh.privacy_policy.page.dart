@@ -11,6 +11,7 @@ class MHPrivacyPolicyPage extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text('Privacy Policy'),
+        transitionBetweenRoutes: false,
         trailing: CupertinoButton(
           sizeStyle: CupertinoButtonSize.small,
           onPressed: () => Navigator.pop(context),

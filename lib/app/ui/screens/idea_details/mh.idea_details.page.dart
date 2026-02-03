@@ -9,16 +9,65 @@ import 'package:money_hustle/app/data/providers/mh.ideas.provider.dart';
 import 'package:money_hustle/app/ui/screens/widgets/mh.category_chip.dart';
 import 'package:money_hustle/app/ui/premium/mh.main_paywall.page.dart';
 
-class MHIdeaDetailsPage extends StatelessWidget {
+class MHIdeaDetailsPage extends StatefulWidget {
   final String ideaId;
 
   const MHIdeaDetailsPage({super.key, required this.ideaId});
 
   @override
+  State<MHIdeaDetailsPage> createState() => _MHIdeaDetailsPageState();
+}
+
+class _MHIdeaDetailsPageState extends State<MHIdeaDetailsPage> {
+  void _showProgressFeedback() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(CupertinoIcons.checkmark_circle_fill, color: MHColorStyles.white, size: 20.r),
+            SizedBox(width: 12.r),
+            Text(
+              'Great progress! Keep going.',
+              style: MHTextStyles.subheadlineRegular.copyWith(color: MHColorStyles.white),
+            ),
+          ],
+        ),
+        backgroundColor: MHColorStyles.green,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+        margin: EdgeInsets.all(16.r),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void _showStartFeedback() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(CupertinoIcons.flame_fill, color: MHColorStyles.white, size: 20.r),
+            SizedBox(width: 12.r),
+            Text(
+              "Nice. Let's start small today.",
+              style: MHTextStyles.subheadlineRegular.copyWith(color: MHColorStyles.white),
+            ),
+          ],
+        ),
+        backgroundColor: MHColorStyles.indigo,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+        margin: EdgeInsets.all(16.r),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<MHIdeasProvider>(
       builder: (context, provider, _) {
-        final idea = provider.getIdeaById(ideaId);
+        final idea = provider.getIdeaById(widget.ideaId);
         if (idea == null) {
           return Scaffold(
             appBar: AppBar(),
@@ -26,19 +75,20 @@ class MHIdeaDetailsPage extends StatelessWidget {
           );
         }
 
-        final savedIdea = provider.getSavedIdea(ideaId);
+        final savedIdea = provider.getSavedIdea(widget.ideaId);
         final isSaved = savedIdea != null;
         final isInProgress = savedIdea?.status == MHIdeaStatus.inProgress;
+        final isCompleted = savedIdea?.status == MHIdeaStatus.completed;
 
         return Scaffold(
           backgroundColor: MHColorStyles.onbBackground,
-          body: CustomScrollView(
-            slivers: [
-              CupertinoSliverNavigationBar(
+          body: Column(
+            children: [
+              CupertinoNavigationBar(
                 backgroundColor: MHColorStyles.white,
                 border: null,
-                largeTitle: Text(idea.title, style: MHTextStyles.title2Emphasized),
-                heroTag: 'idea_details_nav',
+                middle: Text('Details', style: MHTextStyles.headlineRegular),
+                transitionBetweenRoutes: false,
                 trailing: GestureDetector(
                   onTap: () => _handleSave(context, provider, idea),
                   child: Icon(
@@ -47,37 +97,48 @@ class MHIdeaDetailsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SliverPadding(
-                padding: EdgeInsets.all(16.r),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate([
-                    _MetaRow(idea: idea),
-                    SizedBox(height: 16.r),
-                    _ContentSection(title: 'Overview', content: idea.content),
-                    SizedBox(height: 20.r),
-                    _StepsSection(
-                      steps: idea.steps,
-                      stepsCompleted: savedIdea?.stepsCompleted ?? [],
-                      isInProgress: isInProgress,
-                      onStepToggle: (index, completed) {
-                        provider.updateStepProgress(ideaId, index, completed);
-                      },
+              Expanded(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverPadding(
+                      padding: EdgeInsets.all(16.r),
+                      sliver: SliverList(
+                        delegate: SliverChildListDelegate([
+                          Text(idea.title, style: MHTextStyles.title2Emphasized),
+                          SizedBox(height: 12.r),
+                          _MetaRow(idea: idea),
+                          SizedBox(height: 16.r),
+                          _ContentSection(title: 'Overview', content: idea.content),
+                          SizedBox(height: 20.r),
+                          _StepsSection(
+                            steps: idea.steps,
+                            stepsCompleted: savedIdea?.stepsCompleted ?? [],
+                            isInProgress: isInProgress,
+                            onStepToggle: (index, completed) {
+                              provider.updateStepProgress(widget.ideaId, index, completed);
+                              if (completed) {
+                                _showProgressFeedback();
+                              }
+                            },
+                          ),
+                          SizedBox(height: 20.r),
+                          _TipsSection(tips: idea.tips),
+                          SizedBox(height: 20.r),
+                          _DisclaimerSection(disclaimer: idea.disclaimer),
+                          SizedBox(height: 120.r),
+                        ]),
+                      ),
                     ),
-                    SizedBox(height: 20.r),
-                    _TipsSection(tips: idea.tips),
-                    SizedBox(height: 20.r),
-                    _DisclaimerSection(disclaimer: idea.disclaimer),
-                    SizedBox(height: 24.r),
-                    _ActionButton(
-                      isSaved: isSaved,
-                      isInProgress: isInProgress,
-                      isCompleted: savedIdea?.status == MHIdeaStatus.completed,
-                      onStart: () => _handleStart(context, provider),
-                      onComplete: () => provider.completeIdea(ideaId),
-                    ),
-                    SizedBox(height: 40.r),
-                  ]),
+                  ],
                 ),
+              ),
+              _BottomActionBar(
+                idea: idea,
+                isSaved: isSaved,
+                isInProgress: isInProgress,
+                isCompleted: isCompleted,
+                onStart: () => _handleStart(context, provider),
+                onComplete: () => provider.completeIdea(widget.ideaId),
               ),
             ],
           ),
@@ -104,13 +165,16 @@ class MHIdeaDetailsPage extends StatelessWidget {
 
   Future<void> _handleStart(BuildContext context, MHIdeasProvider provider) async {
     final canSave = await provider.canSaveIdea();
-    if (!canSave && !provider.isIdeaSaved(ideaId)) {
+    if (!canSave && !provider.isIdeaSaved(widget.ideaId)) {
       if (context.mounted) {
         Navigator.of(context, rootNavigator: true).push(MHMainPaywallPage.route());
       }
       return;
     }
-    await provider.startIdea(ideaId);
+    await provider.startIdea(widget.ideaId);
+    if (mounted) {
+      _showStartFeedback();
+    }
   }
 }
 
@@ -257,6 +321,13 @@ class _StepsSection extends StatelessWidget {
               Text('Steps to Get Started', style: MHTextStyles.headlineRegular),
             ],
           ),
+          if (isInProgress) ...[
+            SizedBox(height: 8.r),
+            Text(
+              'Tap to mark steps as done',
+              style: MHTextStyles.caption1Regular.copyWith(color: MHColorStyles.gray2Dark),
+            ),
+          ],
           SizedBox(height: 12.r),
           ...steps.asMap().entries.map((entry) {
             final index = entry.key;
@@ -271,8 +342,8 @@ class _StepsSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: 24.r,
-                      height: 24.r,
+                      width: 28.r,
+                      height: 28.r,
                       decoration: BoxDecoration(
                         color: isCompleted
                             ? MHColorStyles.green
@@ -281,7 +352,7 @@ class _StepsSection extends StatelessWidget {
                       ),
                       child: Center(
                         child: isCompleted
-                            ? Icon(CupertinoIcons.checkmark, size: 14.r, color: MHColorStyles.white)
+                            ? Icon(CupertinoIcons.checkmark, size: 16.r, color: MHColorStyles.white)
                             : Text(
                                 '${index + 1}',
                                 style: MHTextStyles.caption1Emphasized.copyWith(
@@ -292,11 +363,14 @@ class _StepsSection extends StatelessWidget {
                     ),
                     SizedBox(width: 12.r),
                     Expanded(
-                      child: Text(
-                        step,
-                        style: MHTextStyles.subheadlineRegular.copyWith(
-                          color: isCompleted ? MHColorStyles.gray2Dark : MHColorStyles.primaryTxt,
-                          decoration: isCompleted ? TextDecoration.lineThrough : null,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 4.r),
+                        child: Text(
+                          step,
+                          style: MHTextStyles.subheadlineRegular.copyWith(
+                            color: isCompleted ? MHColorStyles.gray2Dark : MHColorStyles.primaryTxt,
+                            decoration: isCompleted ? TextDecoration.lineThrough : null,
+                          ),
                         ),
                       ),
                     ),
@@ -400,6 +474,67 @@ class _DisclaimerSection extends StatelessWidget {
   }
 }
 
+class _BottomActionBar extends StatelessWidget {
+  final MHIdea idea;
+  final bool isSaved;
+  final bool isInProgress;
+  final bool isCompleted;
+  final VoidCallback onStart;
+  final VoidCallback onComplete;
+
+  const _BottomActionBar({
+    required this.idea,
+    required this.isSaved,
+    required this.isInProgress,
+    required this.isCompleted,
+    required this.onStart,
+    required this.onComplete,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(16.r, 16.r, 16.r, 16.r + MediaQuery.of(context).padding.bottom),
+      decoration: BoxDecoration(
+        color: MHColorStyles.white,
+        boxShadow: [
+          BoxShadow(
+            color: MHColorStyles.black.withValues(alpha: 0.08),
+            blurRadius: 16,
+            offset: const Offset(0, -4),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (!isCompleted && !isInProgress) ...[
+            Text(
+              'This takes ~${idea.readMinutes * 5} minutes to start.',
+              style: MHTextStyles.caption1Regular.copyWith(color: MHColorStyles.gray2Dark),
+            ),
+            SizedBox(height: 12.r),
+          ],
+          if (isInProgress) ...[
+            Text(
+              "Mark today's step as done above",
+              style: MHTextStyles.caption1Regular.copyWith(color: MHColorStyles.gray2Dark),
+            ),
+            SizedBox(height: 12.r),
+          ],
+          _ActionButton(
+            isSaved: isSaved,
+            isInProgress: isInProgress,
+            isCompleted: isCompleted,
+            onStart: onStart,
+            onComplete: onComplete,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _ActionButton extends StatelessWidget {
   final bool isSaved;
   final bool isInProgress;
@@ -444,7 +579,15 @@ class _ActionButton extends StatelessWidget {
         width: double.infinity,
         child: FilledButton(
           onPressed: onComplete,
-          child: const Text('Mark as Completed'),
+          style: FilledButton.styleFrom(
+            backgroundColor: MHColorStyles.green,
+            padding: EdgeInsets.symmetric(vertical: 16.r),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r)),
+          ),
+          child: Text(
+            'Mark as Completed',
+            style: MHTextStyles.headlineRegular.copyWith(color: MHColorStyles.white),
+          ),
         ),
       );
     }
@@ -453,7 +596,15 @@ class _ActionButton extends StatelessWidget {
       width: double.infinity,
       child: FilledButton(
         onPressed: onStart,
-        child: Text(isSaved ? 'Start This Idea' : 'Save & Start'),
+        style: FilledButton.styleFrom(
+          backgroundColor: MHColorStyles.indigo,
+          padding: EdgeInsets.symmetric(vertical: 16.r),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r)),
+        ),
+        child: Text(
+          isSaved ? 'Start This Idea' : 'Save & Start',
+          style: MHTextStyles.headlineRegular.copyWith(color: MHColorStyles.white),
+        ),
       ),
     );
   }

@@ -39,6 +39,12 @@ class _MHMainPageState extends State<MHMainPage> {
     _selectedIndex = (widget.selectedIndex ?? 0).clamp(0, _screens.length - 1);
   }
 
+  void switchToTab(int index) {
+    if (_selectedIndex != index && index >= 0 && index < _screens.length) {
+      setState(() => _selectedIndex = index);
+    }
+  }
+
   int _navCurrentIndex(bool isAdd, int selectedIndex) {
     if (!isAdd) return selectedIndex;
     return selectedIndex >= 2 ? selectedIndex + 1 : selectedIndex;

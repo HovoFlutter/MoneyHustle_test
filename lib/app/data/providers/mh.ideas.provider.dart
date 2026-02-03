@@ -20,6 +20,12 @@ class MHIdeasProvider extends ChangeNotifier {
 
   int get freeSavedLimit => _storage.freeSavedLimit;
 
+  MHIdea get ideaOfTheDay => _repository.getIdeaOfTheDay();
+  DailyFocus get dailyFocus => _repository.getDailyFocus();
+  List<MHIdea> get focusIdeas => _repository.getIdeasForFocus(dailyFocus, limit: 4);
+
+  String get todaysMotivation => _storage.getTodaysMotivationalMessage();
+
   Future<void> init() async {
     if (_initialized) return;
     await _storage.init();

@@ -11,6 +11,7 @@ class MHTermsOfUsePage extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text('Terms of Use'),
+        transitionBetweenRoutes: false,
         trailing: CupertinoButton(
           sizeStyle: CupertinoButtonSize.small,
           onPressed: () => Navigator.pop(context),

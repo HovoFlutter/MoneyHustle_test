@@ -937,6 +937,60 @@ class MHIdeasRepository {
     _shuffleWithSeed(shuffled, seed);
     return shuffled.take(limit).toList();
   }
+
+  MHIdea getIdeaOfTheDay() {
+    final now = DateTime.now();
+    final seed = now.year * 1000 + now.month * 100 + now.day;
+    final index = seed % _ideas.length;
+    return _ideas[index];
+  }
+
+  DailyFocus getDailyFocus() {
+    final now = DateTime.now();
+    final dayOfYear = now.difference(DateTime(now.year, 1, 1)).inDays;
+    final focusIndex = dayOfYear % DailyFocus.values.length;
+    return DailyFocus.values[focusIndex];
+  }
+
+  List<MHIdea> getIdeasForFocus(DailyFocus focus, {int limit = 4}) {
+    final now = DateTime.now();
+    final seed = now.year * 1000 + now.month * 100 + now.day;
+    
+    List<MHIdea> filtered;
+    switch (focus) {
+      case DailyFocus.noInvestment:
+        filtered = _ideas.where((i) => i.investmentType == MHInvestmentType.none).toList();
+      case DailyFocus.quickStart:
+        filtered = _ideas.where((i) => i.readMinutes <= 4).toList();
+      case DailyFocus.weekendHustles:
+        filtered = _ideas.where((i) => 
+          i.category == MHIdeaCategory.offlineGigs || 
+          i.category == MHIdeaCategory.hobbyIncome
+        ).toList();
+      case DailyFocus.onlineFirst:
+        filtered = _ideas.where((i) => i.category == MHIdeaCategory.onlineWork).toList();
+      case DailyFocus.creativeIdeas:
+        filtered = _ideas.where((i) => 
+          i.category == MHIdeaCategory.hobbyIncome || 
+          i.category == MHIdeaCategory.skillsFreelance
+        ).toList();
+    }
+    
+    _shuffleWithSeed(filtered, seed);
+    return filtered.take(limit).toList();
+  }
+}
+
+enum DailyFocus {
+  noInvestment('No-investment ideas', 'Start earning without spending a dime'),
+  quickStart('Quick ideas to start in 30 min', 'No prep needed. Just begin.'),
+  weekendHustles('Weekend side hustles', 'Perfect for your days off'),
+  onlineFirst('Work from anywhere', 'All you need is WiFi'),
+  creativeIdeas('Turn skills into income', 'Your talents are worth money');
+
+  final String title;
+  final String subtitle;
+  const DailyFocus(this.title, this.subtitle);
 }
 
 void _shuffleWithSeed<T>(List<T> list, int seed) {

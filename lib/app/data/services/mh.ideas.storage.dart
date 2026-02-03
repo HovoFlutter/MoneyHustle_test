@@ -5,6 +5,7 @@ import '../models/mh.idea.dart';
 class MHIdeasStorage {
   static const _savedIdeasKey = 'mh_saved_ideas';
   static const _lastMotivationalKey = 'mh_last_motivational';
+  static const _lastMotivationalIndexKey = 'mh_last_motivational_index';
   static const _freeSavedLimit = 5;
 
   late SharedPreferences _prefs;
@@ -133,4 +134,30 @@ class MHIdeasStorage {
     if (last == null) return true;
     return DateTime.now().difference(last).inHours >= 24;
   }
+
+  int getNextMotivationalIndex() {
+    final lastIndex = _prefs.getInt(_lastMotivationalIndexKey) ?? -1;
+    return (lastIndex + 1) % MHMotivationalMessages.messages.length;
+  }
+
+  Future<void> setMotivationalIndex(int index) async {
+    await _prefs.setInt(_lastMotivationalIndexKey, index);
+  }
+
+  String getTodaysMotivationalMessage() {
+    final index = getNextMotivationalIndex();
+    return MHMotivationalMessages.messages[index];
+  }
+}
+
+class MHMotivationalMessages {
+  static const List<String> messages = [
+    "You don't need a big idea. Just a first step.",
+    "Consistency beats motivation.",
+    "One small action today can change your income tomorrow.",
+    "Every expert was once a beginner.",
+    "The best time to start was yesterday. The next best time is now.",
+    "Small steps lead to big changes.",
+    "Your future self will thank you for starting today.",
+  ];
 }
